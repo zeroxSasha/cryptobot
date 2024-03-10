@@ -1,0 +1,1 @@
+Use draw.io to open a 'structure' file.
