@@ -8,6 +8,5 @@ router = Router()
 
 @router.message(CommandStart())
 async def start(message: Message) -> None:
-    await message.answer(f'Welcome to Crypto Bot 24/7',
-                         reply_markup=reply.main_kb)
+    await message.answer(f'Welcome to Crypto Bot 24/7', reply_markup=reply.main_kb)
     
