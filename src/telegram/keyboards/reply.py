@@ -20,7 +20,7 @@ settings_kb = ReplyKeyboardMarkup(
         ],
         [
             KeyboardButton(text="List of Coins"),
-            KeyboardButton(text="Back")
+            KeyboardButton(text="Cancel")
         ]
     ],
     resize_keyboard=True
