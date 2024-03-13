@@ -2,17 +2,6 @@ from aiogram.types import (
     ReplyKeyboardMarkup,
     KeyboardButton
 )
-#from aiogram.fsm.context import FSMContext
-#from aiogram.fsm.state import State, StatesGroup
-#
-#
-#class MenuStates(StatesGroup):
-#    menu = State()
-#    settings = State()
-#    settingsLanguage = State()
-#    settingsMoneyLimit = State()
-#    settingsListOfCoins = State()
-#
 
 main_kb = ReplyKeyboardMarkup(
     keyboard=[
