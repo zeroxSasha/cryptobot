@@ -16,7 +16,7 @@ settings_kb = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(text="🇺🇸🇺🇦Language"),
-            KeyboardButton(text="💲Money Limit"),
+            KeyboardButton(text="💰Money Limit"),
             KeyboardButton(text="🪙List of Coins"),
         ],
         [
