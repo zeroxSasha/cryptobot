@@ -6,7 +6,7 @@ from aiogram.types import (
 main_kb = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text="Settings")
+            KeyboardButton(text="🔧Settings")
         ]
     ],
     resize_keyboard=True
@@ -15,12 +15,12 @@ main_kb = ReplyKeyboardMarkup(
 settings_kb = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text="Language"),
-            KeyboardButton(text="Money Limit"),
+            KeyboardButton(text="🇺🇸🇺🇦Language"),
+            KeyboardButton(text="💲Money Limit"),
+            KeyboardButton(text="🪙List of Coins"),
         ],
         [
-            KeyboardButton(text="List of Coins"),
-            KeyboardButton(text="Cancel")
+            KeyboardButton(text="🔻Cancel")
         ]
     ],
     resize_keyboard=True
