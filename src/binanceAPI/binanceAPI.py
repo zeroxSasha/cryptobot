@@ -1,5 +1,6 @@
 import websocket
 import json
+import asyncio
 
 socket = 'wss://fstream.binance.com/ws/!forceOrder@arr'
 
@@ -20,5 +21,8 @@ def on_error(ws, error):
         print(f'WebSocket error: {error}')
 
 
-ws = websocket.WebSocketApp(socket, on_message=on_message, on_error=on_error)
-ws.run_forever()
+async def run_websocket():
+    ws = websocket.WebSocketApp(socket, on_message=on_message, on_error=on_error)
+    await ws.run_forever()
+
+asyncio.run(run_websocket())
