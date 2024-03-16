@@ -25,3 +25,30 @@ settings_kb = ReplyKeyboardMarkup(
     ],
     resize_keyboard=True
 )
+
+language_kb = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="🔻Cancel")
+        ]
+    ],
+    resize_keyboard=True
+)
+
+moneylimit_kb = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="🔻Cancel")
+        ]
+    ],
+    resize_keyboard=True
+)
+
+listofcoins_kb = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="🔻Cancel")
+        ]
+    ],
+    resize_keyboard=True
+)
