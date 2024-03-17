@@ -11,7 +11,7 @@ from aiogram.enums import ParseMode
 from handlers import bot_messages, user_commands 
 
 
-async def main() -> None:
+async def start_bot() -> None:
     load_dotenv()
     bot = Bot(token=getenv('TELEGRAM_API_TOKEN'), default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     dp = Dispatcher()
@@ -27,4 +27,4 @@ async def main() -> None:
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
-    asyncio.run(main())
+    asyncio.run(start_bot())
