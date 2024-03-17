@@ -1,8 +1,9 @@
 import websocket
 import json
 import asyncio
+from dotenv import load_dotenv
+from os import getenv
 
-socket = 'wss://fstream.binance.com/ws/!forceOrder@arr'
 
 def on_message(ws, message):
     data = json.loads(message)
@@ -22,7 +23,8 @@ def on_error(ws, error):
 
 
 async def run_websocket():
-    ws = websocket.WebSocketApp(socket, on_message=on_message, on_error=on_error)
+    load_dotenv()
+    ws = websocket.WebSocketApp(getenv('WEBSOCKET'), on_message=on_message, on_error=on_error)
     await ws.run_forever()
 
 asyncio.run(run_websocket())
