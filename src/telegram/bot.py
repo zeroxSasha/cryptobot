@@ -30,10 +30,7 @@ class TelegramBot:
 
     @staticmethod
     async def get_bot() -> Bot:
-        if not TelegramBot.__instance:
-            return TelegramBot.__instance
-        else:
-            raise Exception("[Error] There is an error in get_bot() method")
+        return TelegramBot.__instance
 
 
 def main():
