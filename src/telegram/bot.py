@@ -1,6 +1,3 @@
-import asyncio
-import logging
-import sys
 from dotenv import load_dotenv
 from os import getenv
 
@@ -32,7 +29,3 @@ class TelegramBot:
     async def get_bot() -> Bot:
         return TelegramBot.__instance
 
-
-def main():
-    logging.basicConfig(level=logging.INFO, stream=sys.stdout)
-    asyncio.run(TelegramBot.start_bot())
