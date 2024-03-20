@@ -11,13 +11,13 @@ class DataBase:
         if not DataBase.__instance:
             try:
                 load_dotenv()
-                connection = connect(getenv('DATABASE_URL'))
-                connection.autocommit = True
+                DataBase.__instance = connect(getenv('DATABASE_URL'))
+                DataBase.__instance.autocommit = True
 
             except Exception as e:
                 print(f'[Error] {e}')
         
-        return connection
+        return DataBase.__instance
     
     @staticmethod
     def close_connection() -> None:
