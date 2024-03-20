@@ -11,19 +11,31 @@ from aiogram.enums import ParseMode
 from telegram.handlers import bot_messages, user_commands 
 
 
-async def start_bot() -> None:
-    load_dotenv()
-    bot = Bot(token=getenv('TELEGRAM_API_TOKEN'), default=DefaultBotProperties(parse_mode=ParseMode.HTML))
-    dp = Dispatcher()
+class TelegramBot:
+    __instance = None
 
-    dp.include_routers(
-        user_commands.router,
-        bot_messages.router
-    )
+    @staticmethod
+    async def start_bot() -> None:
+        load_dotenv()
+        TelegramBot.__instance = Bot(token=getenv('TELEGRAM_API_TOKEN'), default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+        dp = Dispatcher()
 
-    await bot.delete_webhook(drop_pending_updates=True)
-    await dp.start_polling(bot)
+        dp.include_routers(
+            user_commands.router,
+            bot_messages.router
+        )
+
+        await TelegramBot.__instance.delete_webhook(drop_pending_updates=True)
+        await dp.start_polling(TelegramBot.__instance)
+
+    @staticmethod
+    async def get_bot() -> Bot:
+        if not TelegramBot.__instance:
+            return TelegramBot.__instance
+        else:
+            raise Exception("[Error] There is an error in get_bot() method")
+
 
 def main():
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
-    asyncio.run(start_bot())
+    asyncio.run(TelegramBot.start_bot())
