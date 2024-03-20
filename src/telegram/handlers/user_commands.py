@@ -2,7 +2,8 @@ from aiogram import Router
 from aiogram.types import Message
 from aiogram.filters import CommandStart
 
-from keyboards import reply
+from telegram.keyboards import reply
+from data.db import DataBase
 
 router = Router()
 
