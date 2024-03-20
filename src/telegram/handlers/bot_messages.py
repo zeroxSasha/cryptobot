@@ -4,8 +4,8 @@ from aiogram import Router, F
 from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 
-from keyboards import reply
-from utils import states
+from telegram.keyboards import reply
+from telegram.utils import states
 
 router = Router()
 
