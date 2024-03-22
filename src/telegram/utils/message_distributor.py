@@ -1,7 +1,7 @@
 import asyncio
 
 from telegram import bot
-from api import api
+from api import binance
 from data import db
 
 
