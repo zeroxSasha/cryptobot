@@ -24,7 +24,7 @@ def on_error(ws, error):
 
 async def run_websocket():
     load_dotenv()
-    ws = websocket.WebSocketApp(getenv('WEBSOCKET'), on_message=on_message, on_error=on_error)
+    ws = websocket.WebSocketApp('wss://fstream.binance.com/ws/!forceOrder@arr', on_message=on_message, on_error=on_error)
     await ws.run_forever()
 
 asyncio.run(run_websocket())
