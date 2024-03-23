@@ -15,11 +15,6 @@ async def settings(message: Message, state: FSMContext) -> None:
     await state.set_state(states.ChatStates.settings)
     await message.answer(f'I analyze the market', reply_markup=reply.settings_kb)
 
-@router.message(F.text.lower() == '🇺🇸🇺🇦language')
-async def settings(message: Message, state: FSMContext) -> None:
-    await state.set_state(states.ChatStates.language)
-    await message.answer(f'🇺🇸🇺🇦Language', reply_markup=reply.language_kb)
-
 @router.message(F.text.lower() == '💰money limit')
 async def settings(message: Message, state: FSMContext) -> None:
     await state.set_state(states.ChatStates.moneylimit)
@@ -37,7 +32,7 @@ async def return_back(message: Message, state: FSMContext) -> None:
         return
 
     logging.info("Cancelling state %r", current_state)
-    if current_state in ['ChatStates:language', 'ChatStates:moneylimit', 'ChatStates:listofcoins']: 
+    if current_state in ['ChatStates:moneylimit', 'ChatStates:listofcoins']: 
         await state.set_state(states.ChatStates.settings)
         await message.answer("🔻Cancel", reply_markup=reply.settings_kb)
     if current_state == 'ChatStates:settings':
