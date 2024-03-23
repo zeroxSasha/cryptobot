@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-03-23T17:38:07.005Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:123.0) Gecko/20100101 Firefox/123.0" etag="HCeOZTFgnYr9CaWIaakU" version="24.0.7" type="github">
+<mxfile host="app.diagrams.net" modified="2024-03-23T17:39:13.585Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:123.0) Gecko/20100101 Firefox/123.0" etag="iCb5RkCWvGKIKdp0fd_X" version="24.0.7" type="github">
   <diagram name="Page-1" id="e7e014a7-5840-1c2e-5031-d8a46d1fe8dd">
     <mxGraphModel dx="1082" dy="514" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="826" background="none" math="0" shadow="0">
       <root>
@@ -152,6 +152,15 @@
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="690" y="310" as="sourcePoint" />
             <mxPoint x="860" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="trSbKU1FdE9YpmhPeeMb-3" value="COINMARKETCAP API" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="860" y="443" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="trSbKU1FdE9YpmhPeeMb-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="trSbKU1FdE9YpmhPeeMb-3" target="A9pOm5I19ERkuxZuiraP-42">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="810" y="550" as="sourcePoint" />
+            <mxPoint x="735" y="467" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>
