@@ -37,6 +37,11 @@ moneylimit_kb = ReplyKeyboardMarkup(
 listofcoins_kb = ReplyKeyboardMarkup(
     keyboard=[
         [
+            KeyboardButton(text="🎱All Coins"),
+            KeyboardButton(text="🎱Top 25 and Higher"),
+            KeyboardButton(text="🎱Top 50 and Higher"),
+        ],
+        [
             KeyboardButton(text="🔻Cancel")
         ]
     ],
