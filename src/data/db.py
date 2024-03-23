@@ -27,8 +27,16 @@ class DataBase:
             DataBase.__instance.close()
             DataBase.__instance = None
 
+    
     # add_data.py
     @staticmethod
     def add_new_user(user_id: int, days_left: int, money_limit: int, list_of_coins: int) -> None:
         add_data.add_new_user(DataBase.__instance, user_id, days_left, money_limit, list_of_coins)
-        
+    
+    # change_data.py
+    @staticmethod
+    def change_moneylimit(user_id: int, money_limit: int) -> None:
+        update_data.change_moneylimit(DataBase.__instance, user_id, money_limit)
+
+    def change_listofcoins(user_id: int, list_of_coins: int) -> None:
+        update_data.change_listofcoins(DataBase.__instance, user_id, list_of_coins)
