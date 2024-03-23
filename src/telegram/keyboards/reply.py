@@ -15,19 +15,9 @@ main_kb = ReplyKeyboardMarkup(
 settings_kb = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text="🇺🇸🇺🇦Language"),
             KeyboardButton(text="💰Money Limit"),
             KeyboardButton(text="🪙List of Coins"),
         ],
-        [
-            KeyboardButton(text="🔻Cancel")
-        ]
-    ],
-    resize_keyboard=True
-)
-
-language_kb = ReplyKeyboardMarkup(
-    keyboard=[
         [
             KeyboardButton(text="🔻Cancel")
         ]
