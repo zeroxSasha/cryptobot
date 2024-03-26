@@ -2,7 +2,7 @@ from psycopg2 import connect
 from dotenv import load_dotenv
 from os import getenv
 
-from data import add_data, update_data
+from data import add_data, update_data, get_data
 
 
 class DataBase:
@@ -40,3 +40,8 @@ class DataBase:
 
     def change_listofcoins(user_id: int, list_of_coins: int) -> None:
         update_data.change_listofcoins(DataBase.__instance, user_id, list_of_coins)
+
+    # get_data.py
+    @staticmethod
+    def get_all_users() -> list:
+        return get_data.get_all_users(DataBase.__instance)
