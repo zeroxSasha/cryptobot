@@ -1,3 +1,5 @@
+import asyncio
+
 from dotenv import load_dotenv
 from os import getenv
 
@@ -6,6 +8,7 @@ from aiogram.client.bot import DefaultBotProperties
 from aiogram.enums import ParseMode
 
 from telegram.handlers import bot_messages, user_commands 
+from telegram.utils import message_distributor
 
 
 class TelegramBot:
@@ -24,8 +27,14 @@ class TelegramBot:
 
         await TelegramBot.__instance.delete_webhook(drop_pending_updates=True)
         await dp.start_polling(TelegramBot.__instance)
+        
 
     @staticmethod
     async def get_bot() -> Bot:
         return TelegramBot.__instance
+    
 
+async def run_telegram():
+    bot_task = asyncio.create_task(TelegramBot.start_bot())
+    binance_task = asyncio.create_task(message_distributor.send_to_all_users())
+    await asyncio.gather(bot_task, binance_task)
