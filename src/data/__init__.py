@@ -1,1 +1,0 @@
-from data import add_data, postgresql, update_data
