@@ -6,6 +6,7 @@ from aiogram.fsm.context import FSMContext
 
 from telegram.keyboards import reply
 from telegram.utils import states
+from data.postgre_db import postgre_main
 
 router = Router()
 
@@ -39,26 +40,28 @@ async def return_back(message: Message, state: FSMContext) -> None:
         await state.clear()
         await message.answer("🔻Cancel", reply_markup=reply.main_kb)
 
-# <-- implement adding values to a database -->
 @router.message(states.ChatStates.moneylimit)
 async def settings_moneylimit_handler(message: Message, state: FSMContext) -> None:
     if not message.text.isdigit():
         await message.answer("❗️Enter only positive values k $: ")
         return
     else:
+        postgre_main.DataBase.change_moneylimit(message.from_user.id, int(message.text))
         await message.answer(f"✔️Money limit set to {message.text}k $", reply_markup=reply.settings_kb)
         await state.set_state(states.ChatStates.settings)
 
-# <-- implement adding values to a database -->
 @router.message(states.ChatStates.listofcoins)
 async def settings_listofcoins_handler(message: Message, state: FSMContext) -> None:
     if message.text == "🎱All Coins":
+        postgre_main.DataBase.change_listofcoins(message.from_user.id, 0)
         await message.answer(f"✔️All Coins will be shown", reply_markup=reply.settings_kb)
         await state.set_state(states.ChatStates.settings)
     elif message.text == "🎱Top 25 and Higher":
+        postgre_main.DataBase.change_listofcoins(message.from_user.id, 25)
         await message.answer(f"✔️Top 25 and Higher will be shown", reply_markup=reply.settings_kb)
         await state.set_state(states.ChatStates.settings)
     elif message.text == "🎱Top 50 and Higher":
+        postgre_main.DataBase.change_listofcoins(message.from_user.id, 50)
         await message.answer(f"✔️Top 50 and Higher will be shown", reply_markup=reply.settings_kb)
         await state.set_state(states.ChatStates.settings)
     else:
