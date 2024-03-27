@@ -20,8 +20,8 @@ async def send_to_all_users() -> None:
                 money_limit = user[2]
                 list_of_coins = user[3]
 
-                if 4999 < int(data['Total']):
+                if money_limit * 1000 < int(data['Total']):
                     if data['Side'] == 'Buy':
-                        await tgbot.send_message(id, f"🟢 #{data['Symbol']} Liquidated Long: ${data['Total']} at ${data['Average Price']}")
+                        await tgbot.send_message(id, f"🔴 #{data['Symbol']} Liquidated Long: ${data['Total']} at ${data['Average Price']}")
                     else:
-                        await tgbot.send_message(id, f"🔴 #{data['Symbol']} Liquidated Short: ${data['Total']} at ${data['Average Price']}")
+                        await tgbot.send_message(id, f"🟢 #{data['Symbol']} Liquidated Short: ${data['Total']} at ${data['Average Price']}")
