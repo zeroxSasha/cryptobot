@@ -1,11 +1,11 @@
-import websocket
+import websockets
 import json
 import asyncio
-from dotenv import load_dotenv
-from os import getenv
+
+from data.redis_db import redis_main
 
 
-def on_message(ws, message):
+def on_message(message) -> dict:
     data = json.loads(message)
 
     info = {
@@ -14,17 +14,18 @@ def on_message(ws, message):
         'Total': round(float(data['o']['p']) * float(data['o']['q']), 2),
         'Average Price': data['o']['ap'],
     }
+    
+    if info['Total'] > 5000:
+        redis_main.RedisDB.add_new_value(json.dumps(info))
 
-    print(info)
+async def run_websocket() -> None:
+    while True:
+        try:
+            print('Connecting to Binance WebSocket...')
+            async with websockets.connect(f'wss://fstream.binance.com/ws/!forceOrder@arr') as ws:
+                async for message in ws:
+                    on_message(message)
 
-
-def on_error(ws, error):
-        print(f'WebSocket error: {error}')
-
-
-async def run_websocket():
-    load_dotenv()
-    ws = websocket.WebSocketApp('wss://fstream.binance.com/ws/!forceOrder@arr', on_message=on_message, on_error=on_error)
-    await ws.run_forever()
-
-asyncio.run(run_websocket())
+        except Exception as e:
+            print(f'WebSocket connection error: {e}')
+            await asyncio.sleep(5)
