@@ -7,12 +7,13 @@ class RedisDB:
     __instance = None
 
     @staticmethod
-    async def get_connection():
+    async def get_connection() -> redis.Redis:
         if not RedisDB.__instance:
             try:
                 load_dotenv()
                 RedisDB.__instance = redis.asyncio.from_url(getenv('REDIS_URL'))
-
+                await RedisDB.__instance.flushall(asynchronous=True)
+                print('Redis connection established')
             except Exception as e:
                 print(f'[Error] {e}')
         
