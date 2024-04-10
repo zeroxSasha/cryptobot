@@ -7,11 +7,11 @@ class RedisDB:
     __instance = None
 
     @staticmethod
-    def get_connection():
+    async def get_connection():
         if not RedisDB.__instance:
             try:
                 load_dotenv()
-                RedisDB.__instance = redis.Redis.from_url(getenv('REDIS_URL'))
+                RedisDB.__instance = redis.asyncio.from_url(getenv('REDIS_URL'))
 
             except Exception as e:
                 print(f'[Error] {e}')
@@ -19,20 +19,19 @@ class RedisDB:
         return RedisDB.__instance
     
     @staticmethod
-    def close_connection() -> None:
-        if RedisDB.get_connection() is not None:
-            RedisDB.__instance.close()
+    async def close_connection() -> None:
+        if RedisDB.__instance is not None:
+            await RedisDB.__instance.close()
             RedisDB.__instance = None
 
     @staticmethod
-    def add_new_value(data: str) -> None:
-        RedisDB.get_connection().rpush('signals', data)
+    async def add_new_value(data: str) -> None:
+        await RedisDB.__instance.rpush('signals', data)
     
     @staticmethod
-    def get_last_value() -> None:
-        return RedisDB.get_connection().lindex('signals', 0)
+    async def get_last_value() -> bytes:
+        return await RedisDB.__instance.lindex('signals', 0)
     
     @staticmethod
-    def delete_last_value():
-        return RedisDB.get_connection().lpop('signals')
-
+    async def delete_last_value() -> bytes:
+        return await RedisDB.__instance.lpop('signals')
