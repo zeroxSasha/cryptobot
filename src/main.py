@@ -7,6 +7,8 @@ import logging
 import sys
 
 async def main():
+    await redis_main.RedisDB.get_connection()
+
     bot_task = asyncio.create_task(bot.run_telegram())
     binance_task = asyncio.create_task(binance.run_websocket())
     await asyncio.gather(bot_task, binance_task)
@@ -15,8 +17,6 @@ if __name__ == '__main__':
     try:
         logging.basicConfig(level=logging.INFO, stream=sys.stdout)
         postgre_main.DataBase.get_connection()
-        redis_main.RedisDB.get_connection()
-        redis_main.RedisDB.get_connection().delete('signals')
 
         asyncio.run(main())
     except Exception as e:
