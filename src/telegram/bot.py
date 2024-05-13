@@ -35,6 +35,8 @@ class TelegramBot:
     
 
 async def run_telegram():
+    print("Launching Telegram Bot...")
     bot_task = asyncio.create_task(TelegramBot.start_bot())
-    binance_task = asyncio.create_task(message_distributor.send_to_all_users())
-    await asyncio.gather(bot_task, binance_task)
+    distributor = asyncio.create_task(message_distributor.send_to_all_users())
+    await asyncio.gather(bot_task, distributor)
+
