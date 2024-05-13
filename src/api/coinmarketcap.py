@@ -25,10 +25,10 @@ async def run_coinmarketcap() -> list[str]:
             response.raise_for_status()
             
             data = await response.json()
-            coins = list()
-            for i in data['data']:
-                coins.append(i['symbol'].lower() + 'usdt')
-            
+            coins = dict()
+            for index, value in enumerate(data['data'], start=1):
+                coins[index] = value['symbol']
+            print('MATIC' in coins.values())
             return coins
 
 if __name__ == '__main__':
