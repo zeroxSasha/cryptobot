@@ -22,7 +22,7 @@ class RedisDB:
     @staticmethod
     async def close_connection() -> None:
         if RedisDB.__instance is not None:
-            await RedisDB.__instance.close()
+            await RedisDB.__instance.aclose()
             RedisDB.__instance = None
 
     @staticmethod
