@@ -8,17 +8,36 @@ from data.variable_storage.coinmarketcap_storage import CoinMarketCapStorage
 async def send_to_all_users() -> None:
     tgbot = await bot.TelegramBot.get_bot()
     while True:
-        data = await redis_main.RedisDB.delete_last_value()
-        if data:
+        binance_liquidation = await redis_main.RedisDB.delete_last_value()
+        if binance_liquidation:
             users = postgre_main.DataBase.get_all_users()
-            data = json.loads(data)
+            binance_liquidation = json.loads(binance_liquidation)
+            top25_coins = await CoinMarketCapStorage.get_top_25_coins()
+            top50_coins = await CoinMarketCapStorage.get_top_50_coins()
+            short_symbol_form = binance_liquidation['Symbol'][:-4]
+
             for user in users:
                 id = user[0]
                 money_limit = user[2]
                 list_of_coins = user[3]
 
-                if money_limit * 1000 < int(data['Total']):
-                    if data['Side'] == 'BUY':
-                        await tgbot.send_message(id, f"🔴 #{data['Symbol']} Liquidated Long: ${data['Total']} at ${data['Average Price']}")
-                    else:
-                        await tgbot.send_message(id, f"🟢 #{data['Symbol']} Liquidated Short: ${data['Total']} at ${data['Average Price']}")
+                if money_limit * 1000 < int(binance_liquidation['Total']):
+                    if list_of_coins == 0: # all of the coins
+                        print("all")
+                        if binance_liquidation['Side'] == 'BUY':
+                            await tgbot.send_message(id, f"🔴 #{binance_liquidation['Symbol']} Liquidated Long: ${binance_liquidation['Total']} at ${binance_liquidation['Average Price']}")
+                        else:
+                            await tgbot.send_message(id, f"🟢 #{binance_liquidation['Symbol']} Liquidated Short: ${binance_liquidation['Total']} at ${binance_liquidation['Average Price']}")
+                    elif list_of_coins == 25 and short_symbol_form not in top25_coins: # not in first 25
+                        print("25")
+                        if binance_liquidation['Side'] == 'BUY':
+                            await tgbot.send_message(id, f"🔴 #{binance_liquidation['Symbol']} Liquidated Long: ${binance_liquidation['Total']} at ${binance_liquidation['Average Price']}")
+                        else:
+                            await tgbot.send_message(id, f"🟢 #{binance_liquidation['Symbol']} Liquidated Short: ${binance_liquidation['Total']} at ${binance_liquidation['Average Price']}")
+                    elif list_of_coins == 50 and short_symbol_form not in top25_coins and binance_liquidation['Symbol'] not in top50_coins: # not in first 50
+                        print("50")
+                        if binance_liquidation['Side'] == 'BUY':
+                            await tgbot.send_message(id, f"🔴 #{binance_liquidation['Symbol']} Liquidated Long: ${binance_liquidation['Total']} at ${binance_liquidation['Average Price']}")
+                        else:
+                            await tgbot.send_message(id, f"🟢 #{binance_liquidation['Symbol']} Liquidated Short: ${binance_liquidation['Total']} at ${binance_liquidation['Average Price']}")
+                        
