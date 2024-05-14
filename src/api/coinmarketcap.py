@@ -19,17 +19,16 @@ headers = {
 }
 
 
-async def run_coinmarketcap() -> list[str]:
+async def get_top_coins() -> list[str]:
     async with aiohttp.ClientSession(headers=headers) as session:
         async with session.get(url, params=parameters) as response:
             response.raise_for_status()
             
             data = await response.json()
-            coins = dict()
-            for index, value in enumerate(data['data'], start=1):
-                coins[index] = value['symbol']
-            print('MATIC' in coins.values())
+            coins = list()
+            for value in data['data']:
+                coins.append(value['symbol'])
             return coins
 
 if __name__ == '__main__':
-    asyncio.run(run_coinmarketcap())
+    asyncio.run(get_top_coins())
