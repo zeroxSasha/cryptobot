@@ -1,6 +1,7 @@
 from telegram import bot
 from data.postgre_db import postgre_main
 from data.redis_db import redis_main
+from data.variable_storage import coinmarketcap_storage
 from api import binance
 import asyncio
 import logging
@@ -11,7 +12,9 @@ async def main():
 
     bot_task = asyncio.create_task(bot.run_telegram())
     binance_task = asyncio.create_task(binance.run_websocket())
-    await asyncio.gather(bot_task, binance_task)
+    coinmarketcap_task = asyncio.create_task(coinmarketcap_storage.CoinMarketCapStorage.run_coinmarketcap())
+    await asyncio.gather(bot_task, binance_task, coinmarketcap_task)
+
 
 if __name__ == '__main__':
     try:
