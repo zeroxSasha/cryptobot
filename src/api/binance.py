@@ -15,7 +15,7 @@ async def on_message(message) -> dict:
         'Average Price': data['o']['ap'],
     }
     
-    if info['Total'] > 5000:
+    if info['Total'] > 8000:
         await redis_main.RedisDB.add_new_value(json.dumps(info))
 
 async def run_websocket() -> None:
