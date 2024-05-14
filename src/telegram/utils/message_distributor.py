@@ -1,14 +1,12 @@
-import asyncio
 import json
 
 from telegram import bot
 from data.postgre_db import postgre_main
 from data.redis_db import redis_main
-
+from data.variable_storage.coinmarketcap_storage import CoinMarketCapStorage
 
 async def send_to_all_users() -> None:
     tgbot = await bot.TelegramBot.get_bot()
-                
     while True:
         data = await redis_main.RedisDB.delete_last_value()
         if data:
