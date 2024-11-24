@@ -20,4 +20,4 @@ pip install -r requirements
 * CoinMarketCap API
 
 ## Live Example
-https://t.me/rekt_observer_bot
+Currently unavailable
