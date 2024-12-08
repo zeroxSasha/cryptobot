@@ -1,4 +1,5 @@
 from psycopg2 import connect
+from psycopg2.extras import RealDictCursor
 from dotenv import load_dotenv
 from os import getenv
 
@@ -17,11 +18,42 @@ class DataBase:
                 DataBase.__instance = connect(getenv('POSTGRESQL_URL'))
                 DataBase.__instance.autocommit = True
 
+                DataBase.ensure_users_table()
+
             except Exception as e:
                 print(f'[Error] {e}')
         
         return DataBase.__instance
     
+    @staticmethod
+    def ensure_users_table():
+        try:
+            with DataBase.__instance.cursor(cursor_factory=RealDictCursor) as cursor:
+                cursor.execute("""
+                    SELECT EXISTS (
+                        SELECT 1 
+                        FROM information_schema.tables 
+                        WHERE table_name = 'users'
+                    );
+                """)
+                table_exists = cursor.fetchone()['exists']
+                
+                if not table_exists:
+                    cursor.execute("""
+                        CREATE TABLE users (
+                            user_id BIGSERIAL PRIMARY KEY,
+                            days_left INTEGER DEFAULT 0,
+                            money_limit INTEGER DEFAULT 10,
+                            list_of_coins INTEGER DEFAULT 0
+                        );
+                    """)
+                    print("[Info] Table 'users' is created.")
+                else:
+                    print("[Info] Table 'users' already exists.")
+        
+        except Exception as e:
+            print(f"[Error] Unable to check or create a table: {e}")
+
     @staticmethod
     def close_connection() -> None:
         if DataBase.__instance is not None:
